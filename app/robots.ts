@@ -6,6 +6,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: "*",
       allow: "/",
     },
-    sitemap: "https://tinh-luong-thue-vn.example/sitemap.xml",
+    sitemap: "https://tinh-luong-thue-vn.vercel.app/sitemap.xml",
   };
 }

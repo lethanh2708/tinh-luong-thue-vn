@@ -3,9 +3,9 @@ import { AdSlot } from "@/components/AdSlot";
 import { MinWageTable } from "@/components/MinWageTable";
 
 export const metadata: Metadata = {
-  title: "Lương tối thiểu vùng 2026",
+  title: "Lương tối thiểu vùng 2026 (NĐ 293/2025)",
   description:
-    "Mức lương tối thiểu tháng và giờ vùng I–IV theo Nghị định 293/2025.",
+    "Bảng lương tối thiểu vùng 2026: mức tháng và giờ vùng I–IV theo Nghị định 293/2025. Tra cứu nhanh tiếng Việt.",
 };
 
 export default function LuongToiThieuPage() {
@@ -13,7 +13,7 @@ export default function LuongToiThieuPage() {
     <div className="space-y-6">
       <header className="space-y-2">
         <h1 className="text-2xl font-semibold tracking-tight text-ink sm:text-3xl">
-          Lương tối thiểu vùng
+          Lương tối thiểu vùng 2026
         </h1>
         <p className="text-sm leading-relaxed text-ink-muted">
           Mức tháng và giờ theo{" "}

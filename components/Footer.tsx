@@ -3,6 +3,7 @@ import { DISCLAIMER_VI } from "@/lib/tax-2026";
 
 const footerLinks = [
   { href: "/gioi-thieu", label: "Giới thiệu" },
+  { href: "/huong-dan/cach-tinh-luong-net-2026", label: "Hướng dẫn" },
   { href: "/lien-he", label: "Liên hệ" },
   { href: "/chinh-sach-bao-mat", label: "Chính sách bảo mật" },
 ];
@@ -22,6 +23,22 @@ export function Footer() {
             </Link>
           ))}
         </nav>
+        <p className="mb-4 text-xs text-ink-muted">
+          Hướng dẫn:{" "}
+          <Link
+            href="/huong-dan/cach-tinh-luong-net-2026"
+            className="text-ink underline-offset-4 hover:underline"
+          >
+            Cách tính lương net 2026
+          </Link>
+          {" · "}
+          <Link
+            href="/huong-dan/thue-ho-kinh-doanh-2026"
+            className="text-ink underline-offset-4 hover:underline"
+          >
+            Thuế hộ kinh doanh 2026
+          </Link>
+        </p>
         <p className="font-medium text-ink">Miễn trừ trách nhiệm</p>
         <p className="mt-2">{DISCLAIMER_VI}</p>
         <p className="mt-4 text-xs">

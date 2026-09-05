@@ -7,6 +7,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/tinh-luong",
     "/thue-ho-kinh-doanh",
     "/luong-toi-thieu",
+    "/huong-dan/cach-tinh-luong-net-2026",
+    "/huong-dan/thue-ho-kinh-doanh-2026",
     "/gioi-thieu",
     "/lien-he",
     "/chinh-sach-bao-mat",
@@ -16,6 +18,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     url: base + p,
     lastModified: now,
     changeFrequency: "monthly" as const,
-    priority: p === "" ? 1 : 0.8,
+    priority: p === "" ? 1 : p.startsWith("/huong-dan") ? 0.7 : 0.8,
   }));
 }

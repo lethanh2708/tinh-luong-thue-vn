@@ -6,20 +6,21 @@ import "./globals.css";
 export const metadata: Metadata = {
   metadataBase: new URL("https://tinh-luong-thue-vn.vercel.app"),
   title: {
-    default: "Tính Lương & Thuế VN — Gross/Net, HKD, Lương tối thiểu",
+    default:
+      "Tính lương net 2026 & thuế VN — Gross/Net, HKD, lương tối thiểu vùng",
     template: "%s | Tính Lương & Thuế VN",
   },
   description:
-    "Công cụ tiếng Việt: tính lương Gross → Net 2026, thuế hộ kinh doanh (NĐ 141/2026), lương tối thiểu vùng (NĐ 293/2025).",
+    "Công cụ tiếng Việt: tính lương net 2026, thuế hộ kinh doanh 2026 (NĐ 141/2026), lương tối thiểu vùng 2026 (NĐ 293/2025).",
   other: {
     "google-adsense-account": "ca-pub-9768397948479783",
   },
   openGraph: {
     locale: "vi_VN",
     type: "website",
-    title: "Tính Lương & Thuế VN",
+    title: "Tính lương net 2026 & thuế Việt Nam",
     description:
-      "Tính Gross → Net, thuế hộ kinh doanh và tra lương tối thiểu vùng — MVP tham khảo.",
+      "Tính Gross → Net, thuế hộ kinh doanh 2026 và tra lương tối thiểu vùng — MVP tham khảo.",
   },
 };
 

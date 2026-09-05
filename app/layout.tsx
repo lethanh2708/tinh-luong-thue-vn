@@ -12,6 +12,9 @@ export const metadata: Metadata = {
   },
   description:
     "Công cụ tiếng Việt: tính lương net 2026, thuế hộ kinh doanh 2026 (NĐ 141/2026), lương tối thiểu vùng 2026 (NĐ 293/2025).",
+  verification: {
+    google: "SLRQDEV8m99GWhMmlzAyKvftHkeReiw_fAgDHz4LPG4",
+  },
   other: {
     "google-adsense-account": "ca-pub-9768397948479783",
   },

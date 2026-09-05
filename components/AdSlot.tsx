@@ -1,17 +1,29 @@
 /**
- * Placeholder cho Google AdSense.
- * Thay bằng mã AdSense khi có publisher ID.
- * Giữ class cố định để tránh CLS khi gắn quảng cáo sau.
+ * Google AdSense slot. Hidden by default (no unfinished placeholder UI).
+ * Enable later via `show` prop or NEXT_PUBLIC_ADS_ENABLED=true.
  */
-export function AdSlot({ label = "Quảng cáo" }: { label?: string }) {
+export function AdSlot({
+  label: _label,
+  show,
+}: {
+  label?: string;
+  /** Force-show the ad container (for when AdSense markup is wired). */
+  show?: boolean;
+} = {}) {
+  const enabled =
+    show === true || process.env.NEXT_PUBLIC_ADS_ENABLED === "true";
+
+  if (!enabled) {
+    return null;
+  }
+
   return (
     <div
-      className="my-6 flex min-h-[90px] items-center justify-center rounded-md border border-dashed border-ink/20 bg-cream-dark/30 px-3 py-4 text-center text-xs text-ink-muted"
-      data-ad-slot="placeholder"
+      className="my-6 flex min-h-[90px] items-center justify-center"
+      data-ad-slot="ready"
       aria-hidden="true"
     >
       {/* TODO: AdSense — chèn <ins className="adsbygoogle"> tại đây */}
-      <span>{label} (placeholder)</span>
     </div>
   );
 }

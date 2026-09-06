@@ -3,8 +3,14 @@ import { ImageResponse } from "next/og";
 export const size = { width: 32, height: 32 };
 export const contentType = "image/png";
 
-/** Favicon uy tin: nen cream, khung tron muc, chu T (Tinh/Thue). */
+/** Favicon: may tinh cam tay (cream / ink). */
 export default function Icon() {
+  const btn = {
+    width: 4,
+    height: 3,
+    borderRadius: 1,
+    background: "#ECE3D0",
+  } as const;
   return new ImageResponse(
     (
       <div
@@ -19,21 +25,48 @@ export default function Icon() {
       >
         <div
           style={{
-            width: 26,
+            width: 20,
             height: 26,
             display: "flex",
+            flexDirection: "column",
             alignItems: "center",
-            justifyContent: "center",
-            borderRadius: 8,
+            borderRadius: 3,
             background: "#1C1A17",
-            color: "#ECE3D0",
-            fontSize: 16,
-            fontWeight: 700,
-            fontFamily:
-              "system-ui, -apple-system, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif",
+            paddingTop: 3,
+            paddingBottom: 2,
+            paddingLeft: 2,
+            paddingRight: 2,
           }}
         >
-          T
+          <div
+            style={{
+              width: 16,
+              height: 6,
+              borderRadius: 1,
+              background: "#ECE3D0",
+              marginBottom: 2,
+              opacity: 0.95,
+            }}
+          />
+          <div
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              width: 16,
+              gap: 1,
+              justifyContent: "space-between",
+            }}
+          >
+            <div style={btn} />
+            <div style={btn} />
+            <div style={btn} />
+            <div style={btn} />
+            <div style={btn} />
+            <div style={btn} />
+            <div style={btn} />
+            <div style={btn} />
+            <div style={btn} />
+          </div>
         </div>
       </div>
     ),

@@ -12,7 +12,7 @@ npm run dev
 ## Trạng thái
 
 - Project MVP tại /workspace/tinh-luong-thue-vn
-- Bước tiếp theo: push lên GitHub lethanh2708/tinh-luong-thue-vn (agent không push — không credentials)
+- Vercel Web Analytics: package `@vercel/analytics` + `<Analytics />` in `app/layout.tsx`. Enable Web Analytics in the Vercel project dashboard (Analytics tab) once if it is not already on — usually the package + dashboard toggle is enough.
 
 ## Kiểm tra nhanh
 

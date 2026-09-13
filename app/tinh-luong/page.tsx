@@ -4,9 +4,12 @@ import { AdSlot } from "@/components/AdSlot";
 import { GrossNetCalculator } from "@/components/GrossNetCalculator";
 
 export const metadata: Metadata = {
-  title: "Tính lương net 2026 từ Gross",
+  title: {
+    absolute:
+      "Tính lương Gross sang Net 2026 — thuế TNCN Việt Nam",
+  },
   description:
-    "Công cụ tính lương net 2026: BHXH 8%, BHYT 1.5%, BHTN 1%, giảm trừ gia cảnh và thuế TNCN lũy tiến. Ước tính Gross → Net tiếng Việt.",
+    "Công cụ tính lương Gross sang Net 2026: BHXH, BHYT, BHTN, giảm trừ gia cảnh và thuế TNCN lũy tiến. Ước tính nhanh, tiếng Việt.",
 };
 
 export default function TinhLuongPage() {

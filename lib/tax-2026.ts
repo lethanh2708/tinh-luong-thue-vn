@@ -24,11 +24,15 @@ export const BH_EMPLOYEE_TOTAL_RATE =
   BHXH_EMPLOYEE_RATE + BHYT_EMPLOYEE_RATE + BHTN_EMPLOYEE_RATE; // 0.105
 
 /**
- * Trần đóng BHXH/BHYT thường lấy theo 20 × lương cơ sở.
- * MVP hiện tại: KHÔNG áp trần (tính trên gross).
- * Ghi rõ trên UI: "không áp trần".
+ * Trần BH (APPLY_BH_CEILING = true):
+ * - BHTN: min(gross, 20 × lương tối thiểu vùng) — LTT theo NĐ 293/2025.
+ * - BHXH/BHYT: min(gross, 20 × lương cơ sở) chỉ khi BASE_SALARY_VND là số.
+ *   Khi null: không bịa mức lương cơ sở — tính trên gross và gắn bhxhBhytCeilingPending.
  */
-export const APPLY_BH_CEILING = false;
+export const APPLY_BH_CEILING = true;
+
+/** Lương cơ sở (VND/tháng). null = chưa có số chính thức để gắn trần 20×. */
+export const BASE_SALARY_VND: number | null = null; // cần cập nhật — không bịa mức lương cơ sở 2026
 
 /** Lương tối thiểu vùng (VND/tháng) — NĐ 293/2025 */
 export const MIN_WAGE_BY_REGION = {

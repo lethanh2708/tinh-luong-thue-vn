@@ -1,14 +1,20 @@
 import {
   APPLY_BH_CEILING,
-  BH_EMPLOYEE_TOTAL_RATE,
+  BASE_SALARY_VND,
   BHXH_EMPLOYEE_RATE,
   BHYT_EMPLOYEE_RATE,
   BHTN_EMPLOYEE_RATE,
   DEPENDENT_DEDUCTION,
+  MIN_WAGE_BY_REGION,
   PERSONAL_DEDUCTION,
   TNCN_BRACKETS,
   type RegionCode,
 } from "./tax-2026";
+
+const BH_CEILING_MULTIPLIER = 20;
+
+const NOTE_BHXH_BHYT_PENDING =
+  "Trần BHXH/BHYT (20× lương cơ sở): cần cập nhật";
 
 export type BracketRow = {
   from: number;
@@ -35,6 +41,12 @@ export type GrossToNetResult = {
   net: number;
   brackets: BracketRow[];
   applyCeiling: boolean;
+  /** Trần BHTN = 20 × lương tối thiểu vùng */
+  bhtnCap: number;
+  /** Trần BHXH/BHYT = 20 × lương cơ sở; null khi chưa có mức lương cơ sở */
+  bhxhBhytCap: number | null;
+  bhxhBhytCeilingPending: boolean;
+  notes: string[];
 };
 
 export function calcProgressiveTax(taxableIncome: number): {
@@ -70,10 +82,22 @@ export function calcProgressiveTax(taxableIncome: number): {
   return { tax, brackets };
 }
 
+function resolveBhxhBhytCeiling(gross: number): {
+  cap: number | null;
+  base: number;
+  pending: boolean;
+} {
+  if (typeof BASE_SALARY_VND === "number" && Number.isFinite(BASE_SALARY_VND)) {
+    const cap = BH_CEILING_MULTIPLIER * BASE_SALARY_VND;
+    return { cap, base: Math.min(gross, cap), pending: false };
+  }
+  return { cap: null, base: gross, pending: true };
+}
+
 /**
  * Gross → Net.
- * BH: 10.5% gross; MVP không áp trần (APPLY_BH_CEILING = false).
- * region được giữ để UI/UX và mở rộng trần BHTN sau này.
+ * BHTN: min(gross, 20 × LTT vùng).
+ * BHXH/BHYT: min(gross, 20 × lương cơ sở) nếu BASE_SALARY_VND là số; không thì trên gross.
  */
 export function calcGrossToNet(
   gross: number,
@@ -83,12 +107,18 @@ export function calcGrossToNet(
   const g = Math.max(0, gross);
   const deps = Math.max(0, Math.floor(dependents));
 
-  // Không áp trần — đóng trên gross
-  const base = g;
-  const bhxh = base * BHXH_EMPLOYEE_RATE;
-  const bhyt = base * BHYT_EMPLOYEE_RATE;
-  const bhtn = base * BHTN_EMPLOYEE_RATE;
-  const bhTotal = base * BH_EMPLOYEE_TOTAL_RATE;
+  const bhtnCap = BH_CEILING_MULTIPLIER * MIN_WAGE_BY_REGION[region];
+  const bhtnBase = Math.min(g, bhtnCap);
+  const {
+    cap: bhxhBhytCap,
+    base: bhxhBhytBase,
+    pending: bhxhBhytCeilingPending,
+  } = resolveBhxhBhytCeiling(g);
+
+  const bhxh = bhxhBhytBase * BHXH_EMPLOYEE_RATE;
+  const bhyt = bhxhBhytBase * BHYT_EMPLOYEE_RATE;
+  const bhtn = bhtnBase * BHTN_EMPLOYEE_RATE;
+  const bhTotal = bhxh + bhyt + bhtn;
 
   const incomeAfterBh = g - bhTotal;
   const personalDeduction = PERSONAL_DEDUCTION;
@@ -98,6 +128,17 @@ export function calcGrossToNet(
 
   const { tax, brackets } = calcProgressiveTax(taxableIncome);
   const net = g - bhTotal - tax;
+
+  const notes: string[] = [
+    `Trần BHTN (20× LTT vùng ${region}): ${bhtnCap.toLocaleString("vi-VN")} đ`,
+  ];
+  if (bhxhBhytCeilingPending) {
+    notes.push(NOTE_BHXH_BHYT_PENDING);
+  } else if (bhxhBhytCap !== null) {
+    notes.push(
+      `Trần BHXH/BHYT (20× lương cơ sở): ${bhxhBhytCap.toLocaleString("vi-VN")} đ`
+    );
+  }
 
   return {
     gross: g,
@@ -116,5 +157,9 @@ export function calcGrossToNet(
     net,
     brackets,
     applyCeiling: APPLY_BH_CEILING,
+    bhtnCap,
+    bhxhBhytCap,
+    bhxhBhytCeilingPending,
+    notes,
   };
 }

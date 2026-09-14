@@ -56,6 +56,10 @@ export default function HomePage() {
 
       <GrossNetCalculator />
 
+      <p className="text-sm leading-relaxed text-ink-muted">
+        Kết quả chỉ mang tính ước tính, không thay thế cơ quan thuế / kế toán.
+      </p>
+
       <p className="text-sm text-ink-muted">
         Chưa rõ công thức?{" "}
         <Link
